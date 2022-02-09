@@ -14,26 +14,33 @@ extension UTType {
     }
 }
 
-struct NoteDocument: FileDocument {
-    var text: String
-
-    init(text: String = "Hello, world!") {
-        self.text = text
+class NoteDocument: ReferenceFileDocument {
+    typealias Snapshot = Post
+    
+    @Published var post: Post
+    @Published var isAwesomeLocked: Bool = false
+    
+    init(post: Post = Post()) {
+        self.post = post
     }
-
+    
+    func snapshot(contentType: UTType) throws -> Post {
+        post
+    }
+    
     static var readableContentTypes: [UTType] { [.exampleText] }
-
-    init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
+    
+    required init(configuration: ReadConfiguration) throws {
+        guard let data = configuration.file.regularFileContents
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        text = string
+        self.post = try JSONDecoder().decode(Post.self, from: data)
     }
     
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
-        return .init(regularFileWithContents: data)
+    func fileWrapper(snapshot: Post, configuration: WriteConfiguration) throws -> FileWrapper {
+        let data = try JSONEncoder().encode(post)
+        let fileWrapper = FileWrapper(regularFileWithContents: data)
+        return fileWrapper
     }
 }
