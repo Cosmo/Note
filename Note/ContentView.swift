@@ -9,30 +9,54 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var document: NoteDocument
+    @Environment(\.undoManager) var undoManager
 
     var body: some View {
         VStack(alignment: .leading) {
-            Toggle("Awesome Lock", isOn: $document.isAwesomeLocked)
-                .padding()
-            
+            Toggle("Votes locked?", isOn: $document.post.isPositiveVotesLocked)
+            Text(document.post.isPositiveVotesLocked ? "Votes locked." : "Votes not locked.")
             Divider()
-            
-            VStack(alignment: .leading) {
-                Toggle("Is Awesome?", isOn: $document.post.isAwesome)
-                    .padding()
-                    .disabled(!document.isAwesomeLocked)
-                Text(document.post.isAwesome ? "This document is awesome." : "This document is NOT awesome.")
-                    .padding()
-            }
-            
-            Divider()
-            
-            VStack(alignment: .leading) {
-                TextField("Title", text: $document.post.title)
-                TextEditor(text: $document.post.body)
+            Text("\(document.post.positiveVotes) Positive votes")
+            HStack {
+                Button("-") {
+                    document.decreasePositiveVotes(undoManager: undoManager)
+                }.disabled(document.post.isPositiveVotesLocked)
+                
+                Button("+") {
+                    document.increasePositiveVotes(undoManager: undoManager)
+                }.disabled(document.post.isPositiveVotesLocked)
             }
         }
+        .frame(width: 700, height: 400)
+        .padding()
         .focusedSceneValue(\.document, document)
+        .focusedSceneValue(\.undoManager, undoManager)
+        .toolbar {
+            ToolbarItemGroup(placement: .navigation) {
+                HStack {
+                    undoButton
+                    redoButton
+                }
+            }
+        }
+    }
+    
+    var undoButton: some View {
+        Button(action: {
+            undoManager?.undo()
+        }) {
+            Image(systemName: "arrow.uturn.backward.circle.fill")
+        }
+        .disabled(!(undoManager?.canUndo ?? false))
+    }
+    
+    var redoButton: some View {
+        Button(action: {
+            undoManager?.redo()
+        }) {
+            Image(systemName: "arrow.uturn.forward.circle.fill")
+        }
+        .disabled(!(undoManager?.canRedo ?? false))
     }
 }
 

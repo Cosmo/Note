@@ -18,7 +18,6 @@ class NoteDocument: ReferenceFileDocument {
     typealias Snapshot = Post
     
     @Published var post: Post
-    @Published var isAwesomeLocked: Bool = false
     
     init(post: Post = Post()) {
         self.post = post
@@ -42,5 +41,32 @@ class NoteDocument: ReferenceFileDocument {
         let data = try JSONEncoder().encode(post)
         let fileWrapper = FileWrapper(regularFileWithContents: data)
         return fileWrapper
+    }
+}
+
+extension NoteDocument {
+    func increasePositiveVotes(undoManager: UndoManager? = nil) {
+        post.positiveVotes += 1
+        
+        undoManager?.registerUndo(withTarget: self) { document in
+            document.decreasePositiveVotes(undoManager: undoManager)
+        }
+    }
+    
+    func decreasePositiveVotes(undoManager: UndoManager? = nil) {
+        post.positiveVotes -= 1
+        
+        undoManager?.registerUndo(withTarget: self) { document in
+            document.increasePositiveVotes(undoManager: undoManager)
+        }
+    }
+    
+    func replacePositiveVotes(newValue: Int, undoManager: UndoManager? = nil) {
+        let oldValue = post.positiveVotes
+        post.positiveVotes = newValue
+        
+        undoManager?.registerUndo(withTarget: self) { document in
+            document.replacePositiveVotes(newValue: oldValue, undoManager: undoManager)
+        }
     }
 }

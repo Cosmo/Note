@@ -8,7 +8,6 @@
 import Foundation
 
 struct Post: Codable {
-    var title: String = "Title"
-    var body: String = "Body"
-    var isAwesome: Bool = false
+    var isPositiveVotesLocked: Bool = false
+    var positiveVotes: Int = 0
 }

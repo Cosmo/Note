@@ -13,7 +13,7 @@
 		4545BC7127B41BA900263F04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4545BC7027B41BA900263F04 /* Assets.xcassets */; };
 		4545BC7427B41BA900263F04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4545BC7327B41BA900263F04 /* Preview Assets.xcassets */; };
 		4545BC7D27B41F6B00263F04 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545BC7C27B41F6B00263F04 /* Post.swift */; };
-		4545BC7F27B41FDF00263F04 /* AwesomeCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545BC7E27B41FDF00263F04 /* AwesomeCommands.swift */; };
+		4545BC7F27B41FDF00263F04 /* VoteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545BC7E27B41FDF00263F04 /* VoteCommands.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		4545BC7527B41BA900263F04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4545BC7627B41BA900263F04 /* Note.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Note.entitlements; sourceTree = "<group>"; };
 		4545BC7C27B41F6B00263F04 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		4545BC7E27B41FDF00263F04 /* AwesomeCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwesomeCommands.swift; sourceTree = "<group>"; };
+		4545BC7E27B41FDF00263F04 /* VoteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCommands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +63,7 @@
 				4545BC6C27B41BA800263F04 /* NoteDocument.swift */,
 				4545BC6E27B41BA800263F04 /* ContentView.swift */,
 				4545BC7C27B41F6B00263F04 /* Post.swift */,
-				4545BC7E27B41FDF00263F04 /* AwesomeCommands.swift */,
+				4545BC7E27B41FDF00263F04 /* VoteCommands.swift */,
 				4545BC7027B41BA900263F04 /* Assets.xcassets */,
 				4545BC7527B41BA900263F04 /* Info.plist */,
 				4545BC7627B41BA900263F04 /* Note.entitlements */,
@@ -154,7 +154,7 @@
 				4545BC6B27B41BA800263F04 /* NoteApp.swift in Sources */,
 				4545BC6F27B41BA800263F04 /* ContentView.swift in Sources */,
 				4545BC7D27B41F6B00263F04 /* Post.swift in Sources */,
-				4545BC7F27B41FDF00263F04 /* AwesomeCommands.swift in Sources */,
+				4545BC7F27B41FDF00263F04 /* VoteCommands.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

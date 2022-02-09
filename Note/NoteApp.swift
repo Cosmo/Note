@@ -15,19 +15,32 @@ struct NoteApp: App {
         } editor: { file in
             ContentView(document: file.document)
         }.commands {
-            AwesomeCommands()
+            VoteCommands()
         }
     }
 }
 
 
 struct DocumentKey: FocusedValueKey {
-    typealias Value = NoteDocument
+    typealias Value = NoteDocument?
 }
 
 extension FocusedValues {
     var document: DocumentKey.Value? {
         get { self[DocumentKey.self] }
         set { self[DocumentKey.self] = newValue }
+    }
+}
+
+
+
+struct UndoManagerKey: FocusedValueKey {
+    typealias Value = UndoManager?
+}
+
+extension FocusedValues {
+    var undoManager: UndoManagerKey.Value? {
+        get { self[UndoManagerKey.self] }
+        set { self[UndoManagerKey.self] = newValue }
     }
 }
