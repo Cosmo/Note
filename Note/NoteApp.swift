@@ -22,7 +22,7 @@ struct NoteApp: App {
 
 
 struct DocumentKey: FocusedValueKey {
-    typealias Value = NoteDocument
+    typealias Value = Binding<NoteDocument>
 }
 
 extension FocusedValues {

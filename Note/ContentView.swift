@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var document: NoteDocument
+    @Environment(\.undoManager) var undoManager
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,7 +33,39 @@ struct ContentView: View {
                 TextEditor(text: $document.post.body)
             }
         }
-        .focusedSceneValue(\.document, document)
+        .focusedSceneValue(\.document, $document)
+        .toolbar {
+            ToolbarItemGroup(placement: .navigation) {
+                HStack {
+                    undoButton
+                    redoButton
+                }
+            }
+        }
+    }
+    
+    var undoButton: some View {
+        Button(action: {
+            withAnimation {
+                undoManager?.undo()
+            }
+        }) {
+            Image(systemName: "arrow.uturn.backward.circle.fill")
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .disabled(!(undoManager?.canUndo ?? false))
+    }
+    
+    var redoButton: some View {
+        Button(action: {
+            withAnimation {
+                undoManager?.redo()
+            }
+        }) {
+            Image(systemName: "arrow.uturn.forward.circle.fill")
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .disabled(!(undoManager?.canRedo ?? false))
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct AwesomeCommands: Commands {
-    @FocusedValue(\.document) private var document: NoteDocument?
+    @FocusedBinding(\.document) private var document: NoteDocument?
     
     var body: some Commands {
         CommandMenu("Awesome") {
